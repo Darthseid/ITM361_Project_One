@@ -1,0 +1,1395 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0103)https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&svr=321&lang=en_us&aid=18454&cid=10627716 -->
+<html lang="en-us" class=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="author" content="Turnitin, LLC">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+	<title>Turnitin</title>
+
+
+<link rel="stylesheet" type="text/css" href="./Turnitin_files/2ba0f5af7e33c163e03e3f3fc9098f3bcb_jquery.fancybox.css" media="screen">
+<link rel="stylesheet" type="text/css" href="./Turnitin_files/b631ae11be9e5f3f41edec26a10ae5fccb_tii_styles.css" media="all">
+
+
+<script type="text/javascript" async="" src="./Turnitin_files/ga.js.download"></script><script type="text/javascript" src="./Turnitin_files/d80d72688d199260b65eba8037f7c2c7cb_en_us.js.download"></script>
+<script>
+    var curr_lang = 'en_us';
+</script>
+
+
+<script type="text/javascript" src="./Turnitin_files/d2ae2bb0bfa55dc3a6194661b2c051b9cb_tii_core.js.download"></script>
+<script type="text/javascript" src="./Turnitin_files/4ff99d8057e2f32f94328a49b0e9a62acb_bootstrap.js.download"></script>
+
+
+
+<script type="text/javascript">
+    // ESTABLISH TII GLOBAL VALUES
+    Tii.cms.global.randomNumber = 0.900318907255109;
+    Tii.cms.global.serverID = '322';
+    Tii.cms.global.sessionID = '335b59d8de4c115bb92a64e4bead1952';
+    Tii.cms.global.cookieSession = '1';
+    Tii.cms.global.lang = 'en_us';
+    Tii.cms.global.useEV = '';
+    Tii.cms.global.evBaseUrl = 'https://ev.turnitin.com/auth/ev/fb2a89fa117f5d62190d2956c87145ff';
+    Tii.cms.global.userOptedOutEVBeta = false;
+</script>
+
+
+	<!--	Popup the warning dialog after $timeout_ms ms.	-->
+	<script type="text/javascript">
+    	var application_open = false;
+    	var the_timeout, the_logout, timeoutDialog;
+
+	    YAHOO.util.Event.onDOMReady(function() {
+            timeoutDialog = new YAHOO.widget.Panel('timeoutDialog', {
+                width: '500px',
+                fixedcenter: true,
+                draggable: false,
+                close: false,
+                modal: true,
+                underlay: 'none',
+                visible: false
+            });
+
+            var extendTimerButton = new YAHOO.widget.Button('extend-timer');
+
+            YAHOO.util.Event.addListener('extend-timer-button', 'click', function(e) {
+                YAHOO.util.Event.preventDefault(e);
+                restartTimer();
+                timeoutDialog.hide();
+                YAHOO.util.Connect.initHeader('X-Palladium', '1');
+                YAHOO.util.Connect.asyncRequest('GET', '/session/renew_session?lang=en_us');
+            });
+
+            timeoutDialog.render();
+    		the_timeout = setTimeout('executeTimer();', 3540000);
+    	});
+
+		function executeTimer() {
+		    if(application_open){return;}
+
+            // when the timer fires, need to check if the user really has been
+            // inactive for the entire timeout. If so, show the dialog
+
+            var success = function(o) {
+                var response = o.responseText;
+
+                if (response) {
+                    var inactiveDuration = parseInt(response);
+
+                    var timeoutSec = 3540000 / 1000;
+
+                    if ( isNaN(inactiveDuration) || (inactiveDuration >= timeoutSec) ) {
+                        // the inactive duration is not readable, or if it's
+                        // beyond the time out, then show the dialog
+                        showDialog();
+                    }
+                    else {
+                        // don't show the dialog but extend the timer, if the user has
+                        // not been inactive
+
+                        var remainingMs = 3540000;
+
+                        if (!isNaN(inactiveDuration)) {
+                            remainingMs = ( timeoutSec - inactiveDuration ) * 1000;
+                        }
+
+                        the_timeout = setTimeout('executeTimer();', remainingMs);
+                    }
+                }
+                else {
+                    showDialog();
+                }
+            };
+
+            var failure = function(o) {
+                // if the check call fails, just show the extend dialog
+                showDialog();
+            };
+
+            var callback = {
+                success: success,
+                failure: failure
+            };
+
+            // send the request
+            YAHOO.util.Connect.initHeader('X-Palladium', '1');
+            YAHOO.util.Connect.asyncRequest('GET', '/session/inactive_duration?lang=en_us', callback);
+        }
+
+        function showDialog() {
+            timeoutDialog.show();
+            window.focus();
+            the_logout = setTimeout('logout()', 30000);
+        }
+
+		function logout_main() {
+			self.location="/logout.asp?session-id=335b59d8de4c115bb92a64e4bead1952&svr=322&src=0";
+		}
+
+		function restartTimer() {
+            application_open = false;
+            stopTimer();
+            the_timeout = setTimeout('executeTimer();', 3540000);
+        }
+
+        function stopTimer() {
+            if (the_timeout) {
+                clearTimeout(the_timeout);
+            }
+            if (the_logout) {
+                clearTimeout(the_logout);
+            }
+        }
+
+    	function logout() {
+            if (window.gm_window) {
+                try {
+                    window.gm_window.IP.util.Logger.logInfo('Session timed out by JS with GM open');
+                }
+                catch(e) {
+                }
+            }
+    		window.logout_main();
+    	}
+
+
+		function display_readonly_alert() {
+			alert('This feature is no longer available because this class has expired and has become read-only. If you would like to extend the expiration date of this class, please return to your class home page and click on the \'edit\' button for this class.');
+		}
+
+		function display_inactive_alert() {
+			alert('This class is inactive and no longer accessible.');
+		}
+
+		function display_a_readonly_alert() {
+			alert('This feature is no longer available because this account has become read-only. For more information, please contact your account administrator.');
+		}
+
+		function display_a_inactive_alert() {
+			alert('This feature is no longer available because this account is inactive. For more information, please contact your account administrator.');
+		}
+
+		function display_s_readonly_alert() {
+			alert('This feature is no longer available because this class has expired and has become read-only. For more information, please contact your instructor.');
+		}
+
+		function display_s_inactive_alert() {
+			alert('This feature is no longer available because this class has expired and is now inactive. For more information, please contact your instructor.');
+		}
+
+        YAHOO.util.Event.onDOMReady(function () {
+            if($("account_sections")){
+                var oMenuBar = new YAHOO.widget.MenuBar("account_sections", {
+                                                            autosubmenudisplay: true,
+                                                            hidedelay: 750,
+                                                            lazyload: true });
+                oMenuBar.render();
+            }
+
+            var ss = new StylesheetSwitcher([
+                {
+                    name: 'normal',
+                    link: '',
+                    element: document.getElementByHandle('normal'),
+                    selected: true
+                },
+                {
+                    name: 'smaller',
+                    link: "/r/build/css/tii/46b1b01ff6727f042568a57157077190cb_tii_cms_small_text.css",
+                    element: document.getElementByHandle('smaller')
+                },
+                {
+                    name: 'bigger',
+                    link: "/r/build/css/tii/033627184bcb1a28b9a846c4b32cb7a8cb_tii_cms_large_text.css",
+                    element: document.getElementByHandle('bigger')
+                }
+            ], '/cms_requests.asp', '322');
+
+
+            // initialize jump menu buttons
+            var jumpButtonElements = document.getElementsByHandle('jump_menu_button', '', 'INPUT');
+            for(var i = 0; i < jumpButtonElements.length; i++) {
+                var jumpButton = jumpButtonElements[i];
+
+                var menuElement = document.getElementByHandle('jump_menu_options', jumpButton.parentNode, 'SELECT');
+
+                var button = new YAHOO.widget.Button(jumpButton, {
+                    type: "menu",
+                    menu: menuElement
+                });
+            }
+
+            // initialize message showing/hiding
+            var closeButtons = document.getElementsByHandle('close',  '', 'a');
+
+            if (closeButtons.length > 0) {
+                var hideMessage = function(e) {
+                var closeButton = $E.getTarget(e);
+
+                var attributes = {
+                    opacity: { to: 0 },
+                    height: {to: 0},
+                    padding: {to: 0}
+                };
+                var anim = new YAHOO.util.Anim(closeButton.parentNode, attributes, 1, YAHOO.util.Easing.easeOut);
+                anim.onComplete.subscribe(function(){
+                    closeButton.parentNode.style.display = 'none';
+                })
+                anim.animate();
+
+                $E.stopEvent(e);
+                }
+                $E.on(closeButtons, 'click', hideMessage);
+            }
+
+        });
+
+        function hide_msg(accountid) {
+            var callback = {
+            	success:function(o) {
+            	},
+            	failure:function(o) {
+            	    alert('could not save preference');
+            	}
+            };
+
+            YAHOO.util.Connect.asyncRequest('GET', '/cms_requests.asp?svr=322&msg_to_hide=' + accountid, callback);
+        }
+
+        function hide_tip(tipid) {
+            var callback = {
+            	success:function(o) {
+            	},
+            	failure:function(o) {
+            	}
+            };
+
+            YAHOO.util.Connect.asyncRequest('GET', '/cms_requests.asp?svr=322&tip_to_hide=' + tipid, callback);
+        }
+
+        /**
+        * Purpose: Initializes tooltips for the entire page. See https://sites.google.com/a/iparadigms.com/feds/site-documentation/tii/tip-tip-tooltips for usage.
+        * Returns: nothing
+        */
+        jQuery(function(){
+
+            // initialize all elements with the tooltip classname
+            jQuery(".tooltip").tipTip({
+                defaultPosition: 'top',
+                delay: 500,
+                maxWidth: '500px',
+                edgeOffset: 6
+            });
+        });
+        // Hack for IE8 to show full width of student dropdown box
+        jQuery(function() {
+            window.onload = function() {
+                if ( jQuery.browser.msie && jQuery.browser.version == '8.0') {
+                   jQuery(".ip_forms SELECT").css("width", "auto");
+                }
+            };
+        });
+    </script>
+
+
+<link rel="stylesheet" type="text/css" href="./Turnitin_files/78129f3b29885ebce77353eead549945cb_dynamic_styles.css" media="all">
+<link rel="stylesheet" type="text/css" href="./Turnitin_files/88ee4ccd3555f2b759921fb5d58d83e5cb_container.css" media="all">
+
+
+
+
+<script type="text/javascript" src="./Turnitin_files/8b608684a5f4aec1b540987c93498c01cb_tii_anonymous_marking.js.download"></script>
+
+
+<style type="text/css">.fancybox-margin{margin-right:17px;}</style></head>
+<body id="tii_cms"><iframe id="_yuiResizeMonitor" title="Text Resize Monitor" style="position: absolute; visibility: visible; width: 2em; height: 2em; top: -27px; left: 0px; border-width: 0px;" src="./Turnitin_files/saved_resource.html"></iframe>
+
+<div id="wrapper">
+
+
+
+		
+
+<div id="topline"></div>
+<div id="top_nav_wrap">
+
+    <span id="top_nav">
+
+    <!-- Welcome & Language & Help-->
+        <span dir="LTR">
+            <a alt="User Info" class="user_full_name" href="https://turnitin.com/user_info.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;">Jared McVey</a>
+            <span class="divider"> | </span>
+            <a alt="User Info" href="https://turnitin.com/user_info.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;">User Info</a>
+        </span>
+
+        <span class="divider"> | </span>
+
+        <span dir="LTR"><a href="https://turnitin.com/announcements.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;">Messages (1 new)</a></span>
+
+        <span class="divider"> | </span>
+
+        <!-- Logged in as -->
+
+        <span class="yui-button yui-menu-button" id="current_user_type"><span class="first-child"><button type="button" tabindex="0" id="current_user_type-button">Student</button></span></span>
+        <div id="user_type_menu" style="z-index: 2; position: absolute; visibility: hidden;" class="yui-module yui-overlay yuimenu yui-overlay-hidden yui-button-menu yui-menu-button-menu">
+            <div class="bd">
+                <ul class="first-of-type">
+                    
+                    
+                    <li class="yuimenuitem first-of-type" id="yui-gen0" groupindex="0" index="0">
+                        <a class="yuimenuitemlabel" href="https://turnitin.com/user_type.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;ut=t">Instructor</a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+
+        <!-- Select User Type -->
+
+        <span class="divider"> | </span>
+
+        
+        <span id="lang_span" dir="LTR">
+            <form id="lang_form" method="post" action="https://turnitin.com/lang_update.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;" accept-charset="utf-8">
+                <span class="yui-button yui-menu-button" id="lang_submit"><span class="first-child"><button type="button" tabindex="1" title="Click to select a language" id="lang_submit-button">English</button></span></span>
+                
+            </form>
+        </span>
+
+        <span class="divider"> |</span>
+        
+
+
+        
+
+        <span id="help-tab" dir="LTR"><a tabindex="1" target="_blank" href="https://guides.turnitin.com/01_Manuals_and_Guides">Help</a></span>
+
+        <span class="divider"> | </span>
+
+        
+
+        <span dir="LTR"><a tabindex="1" href="https://turnitin.com/logout.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;">Logout</a></span>
+    <div id="yui-gen1" class="yui-module yui-overlay yuimenu yui-overlay-hidden yui-button-menu yui-menu-button-menu" style="z-index: 2; position: absolute; visibility: hidden;"><div class="bd"><ul class="first-of-type"><li class="yuimenuitem first-of-type" id="yui-gen2" groupindex="0" index="0"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">English</a></li><li class="yuimenuitem" id="yui-gen3" groupindex="0" index="1"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">English (International)</a></li><li class="yuimenuitem" id="yui-gen4" groupindex="0" index="2"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">Čeština</a></li><li class="yuimenuitem" id="yui-gen5" groupindex="0" index="3"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">Deutsch</a></li><li class="yuimenuitem" id="yui-gen6" groupindex="0" index="4"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">Español</a></li><li class="yuimenuitem" id="yui-gen7" groupindex="0" index="5"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">Français</a></li><li class="yuimenuitem" id="yui-gen8" groupindex="0" index="6"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">Italiano</a></li><li class="yuimenuitem" id="yui-gen9" groupindex="0" index="7"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">Nederlands</a></li><li class="yuimenuitem" id="yui-gen10" groupindex="0" index="8"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">Polski</a></li><li class="yuimenuitem" id="yui-gen11" groupindex="0" index="9"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">Português</a></li><li class="yuimenuitem" id="yui-gen12" groupindex="0" index="10"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">Română</a></li><li class="yuimenuitem" id="yui-gen13" groupindex="0" index="11"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">Suomi</a></li><li class="yuimenuitem" id="yui-gen14" groupindex="0" index="12"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">Svenska</a></li><li class="yuimenuitem" id="yui-gen15" groupindex="0" index="13"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">Tiếng việt</a></li><li class="yuimenuitem" id="yui-gen16" groupindex="0" index="14"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">Türkçe</a></li><li class="yuimenuitem" id="yui-gen17" groupindex="0" index="15"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">简体中文</a></li><li class="yuimenuitem" id="yui-gen18" groupindex="0" index="16"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">繁體中文</a></li><li class="yuimenuitem" id="yui-gen19" groupindex="0" index="17"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">日本語</a></li><li class="yuimenuitem" id="yui-gen20" groupindex="0" index="18"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">한국어</a></li><li class="yuimenuitem" id="yui-gen21" groupindex="0" index="19"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">Русский</a></li><li class="yuimenuitem" id="yui-gen22" groupindex="0" index="20"><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" class="yuimenuitemlabel">عربي</a></li></ul></div></div></span>
+
+</div>
+
+<script type="text/javascript">
+    jQuery.noConflict(); // jQuery must play nicely
+    function initPageSelect() {
+        var userTypeMenu = new YAHOO.widget.Menu('user_type_menu', {
+            context: ['current_user_type', 'tl', 'bl', ['windowResize']],
+            shadow: false
+        });
+        userTypeMenu.render();
+
+        var userTypeButton = new YAHOO.widget.Button('current_user_type', {
+            type: 'menu',
+            menu: userTypeMenu,
+            shadow: false
+        });
+
+        YAHOO.util.Dom.setStyle(['current_user_type', 'user_type_menu'], 'display', '');
+
+        
+        var myMenu = YAHOO.util.Dom.get('lang_select');
+        var langMenu = new YAHOO.widget.Menu('lang_select', {
+            context: ['lang_submit', 'tl', 'bl', ['windowResize']],
+            shadow: false,
+            position: 'dynamic',
+            showdelay: 5000
+        });
+        var langMenuContainer = YAHOO.env.ua.webkit ? 'top_nav' : 'lang_form';
+        langMenu.render(langMenuContainer);
+
+        var selectedLangOptionElement = $D.getElementsBy(function(el){return el.selected}, 'OPTION', 'lang_form')[0];
+        var langSelectButton = new YAHOO.widget.Button('lang_submit', {
+            type: 'menu',
+            menu: langMenu,
+            title: 'Click to select a language',
+            label: selectedLangOptionElement.innerHTML
+        });
+
+        langSelectButton.MENUBUTTON_DEFAULT_TITLE = 'Click to select a language';
+        langSelectButton.MENUBUTTON_MENU_VISIBLE_TITLE = 'Click or press Esc to collapse';
+
+        // need to force the menu y value before showing to get the right initial value
+        langMenu.beforeShowEvent.subscribe(function() {
+            var y = YAHOO.util.Region.getRegion(langSelectButton.get('element')).bottom;
+            this.cfg.setProperty('y', y);
+        }, langMenu, true);
+
+        YAHOO.util.Dom.setStyle(['lang_submit', 'lang_select'], 'display', '');
+        
+    }
+
+    initPageSelect();
+
+</script>
+
+
+
+<!-- @@@@@@@@@@ TOP TABS @@@@@@@@@@@@ -->
+<div id="top_tabs_wrapper">
+    <div id="top_tabs">
+
+    
+    <!--
+    <ul id="stylesheet_switcher">
+        <li class="smaller"><a class="_smaller " href="cms_requests.asp?r=9.60018189777045&svr=322&lang=en_us&text_size=smaller&return=true">smaller</a></li>
+        <li class="normal"><a class="_normal selected" href="cms_requests.asp?r=9.60018189777045&svr=322&lang=en_us&text_size=normal&return=true">normal</a></li>
+        <li class="bigger"><a class="_bigger " href="cms_requests.asp?r=9.60018189777045&svr=322&lang=en_us&text_size=bigger&return=true">bigger</a></li>
+    </ul>-->
+
+    
+        
+            
+                <a href="https://turnitin.com/s_home.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;"><h1><span></span>Turnitin</h1></a>
+            
+        
+    
+
+    <div class="clear"></div>
+    </div>
+</div>
+
+
+
+		
+
+
+<!-- SIDE CONTENT AREA ===============================-->
+<div id="">
+
+    <!-- SUB NAVIGATION =========-->
+    <div id="tabs">
+        <ul class="">
+            
+            <li class="first_selected"><a tabindex="2" href="https://turnitin.com/s_class_portfolio.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;" id="left">Class Portfolio</a></li>
+            
+            <li><a tabindex="2" href="https://turnitin.com/student_grade.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;sid=1042484865" title="">My Grades</a></li>
+            
+            
+            
+            
+            
+            <li><a tabindex="2" href="https://turnitin.com/discuss_home.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;" title="">Discussion</a></li>
+                    
+            
+            
+            
+            <li class="last"><a tabindex="2" href="https://turnitin.com/calendar.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;" title="">Calendar</a></li>
+            
+        </ul>
+        <div class="clear"></div>
+    </div>
+
+    <div id="main_content" class="">
+        
+        <!-- @@@@@@@@@@ BREAD CRUMBS @@@@@@@@@@@@ -->
+        <div id="bread_crumbs">
+            <h2>Now viewing:</h2> <ul><li><a href="https://turnitin.com/s_home.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;">Home</a><span class="breadcrumb_arrow"> &gt; </span><a href="https://turnitin.com/s_class_portfolio.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;cid=10627716">Period 6:  English IV</a></li></ul>
+            <div class="clear"></div>
+        </div>
+        
+
+        <!-- URGENT ANNOUCMENT ===============================-->
+        
+
+        <!-- ERROR SAVING OR EDITING =============-->
+        
+
+        <!-- GENERAL TIPS MESSAGE ==========-->
+        
+
+        <!-- END SIDE CONTENT AREA & START MAIN CONTENT===============================-->
+
+        <div id="main_section">
+
+		<!--END CLASSHEADER, START PAGESPECIFIC-->
+<script type="text/javascript">
+    function hide_msg() {
+        var callback = {
+            success:function(o) {
+            },
+            failure:function(o) {
+                alert('could not save preference');
+            }
+        };
+
+        YAHOO.util.Connect.asyncRequest('GET', '/process_view_announcement.asp?msg_id=121', callback);
+    }
+
+    function confirm_resubmit(start_time,handler,aid){
+        
+            var yes = confirm("You have already submitted a paper to this assignment and a Similarity Report was generated for your submission. If you choose to resubmit your paper, your earlier submission will be replaced and a new report will be generated. After 3 resubmissions, you will need to wait 24 hours after a resubmission to see a new Similarity Report.");
+        
+        if (yes){
+            document.location.href = handler + ".asp?aid=" + aid + "&svr=322" + "&session-id=335b59d8de4c115bb92a64e4bead1952" + "&lang=en_us";
+        }
+    }
+
+    function confirm_unsubmit( node ) {
+        var confirm_string = 'Reviews can be edited until the due date of the assignment. When editing is completed, the review will have to be resubmitted by clicking on the submit button within the review.';
+
+        /* check to see if the due date has passed while the page has been sitting here.
+           hack the assignment id out of the href and find the relevent node */
+
+        var href = node.href;
+        var a_id = href.match( /assignment\/([0-9]+)/ )[1];
+
+        var tr_node = document.getElementById( 'assignment_' + a_id );
+
+        if( !tr_node ) {
+            // ruh roh - just bail
+            return confirm ( confirm_string );
+        }
+
+        /* now look for the hidden date with the rfc2822 string */
+        var rfc2822_input = YAHOO.util.Dom.getElementsByClassName( 'rfc2822', 'input', tr_node )[0];
+
+        var due_date = new Date( rfc2822_input.value );
+
+        /* is it later than the due date? */
+        if( new Date() > due_date ) {
+            alert( 'The due date for this assignment has passed. You cannot change your review.' );
+            return false;
+        }
+
+        return confirm( confirm_string );
+    }
+
+    var closePopover;
+
+    // using jQuery global
+    jQuery(document).ready(function($) {
+        $('#student_assignment_table .peermark-btns .btn[rel=popover]').popover({
+            html: true,
+            template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><a href="#" id="close-popover" class="close-popover" onclick="closePopover(event);">&times;</a><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>',
+            trigger: 'manual',
+            placement: 'top'
+        }).click(function(e) {
+            e.preventDefault();
+            $(this).toggleClass('popover-trigger').popover('toggle');
+        });
+
+        $(".alert").alert();
+
+        // Closes the Bootstrap popovers
+        closePopover = function(e) {
+            e.preventDefault();
+
+            $('#student_assignment_table .popover-trigger').toggleClass('popover-trigger').popover('toggle');
+        }
+
+        $('#student_assignment_table a[target=rubric_view]').click(function(e) {
+            e.preventDefault();
+            window.open(this.href, 'rubric_view', 'toolbar=0,titlebar=0,menubar=0,location=0,status=0,width=800,height=600');
+        });
+
+        // orig     onclick="window.open('/download_file.asp?r=9.60018189777045&svr=322&lang=en_us&lang=en_us&oid=&fn=&type=paper&p=0','_download', 'height=150,width=300,location=0,status=0,menubar=0,scrollbars=0');"
+        // pdf      onclick="window.open('/download_file.asp?r=9.60018189777045&svr=322&lang=en_us&lang=en_us&oid=&fn=&type=paper&p=1','_download', 'height=150,width=300,location=0,status=0,menubar=0,scrollbars=0');"
+        // receipt  onclick="window.open('/download_file.asp?r=9.60018189777045&svr=322&lang=en_us&lang=en_us&oid=&fn=&type=paper&p=','_download', 'height=150,width=300,location=0,status=0,menubar=0,scrollbars=0');"
+
+        var MAX_ATTEMPTS_ALLOWED = 15;
+        $.data(document.body, 'remainingAttemptsAllowed', MAX_ATTEMPTS_ALLOWED);
+        $.data(document.body, 'delaySecondsSequence', [ 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377 ]); // fibonacci sequence for progressively backing off
+
+        var resetDownloadStatus = function() {
+            $('#download-activity-'+$.data(document.body, 'objectId')).hide();
+            $.data(document.body, 'remainingAttemptsAllowed', MAX_ATTEMPTS_ALLOWED);
+            $.data(document.body, 'currentlyDownloading', false);
+        };
+
+        var pollDownload = function(response) {
+
+            var remainingAttemptsAllowed = $.data(document.body, 'remainingAttemptsAllowed');
+
+            var delaySeconds = $.data(document.body, 'delaySecondsSequence')[MAX_ATTEMPTS_ALLOWED - remainingAttemptsAllowed];
+
+            console.log('remaining attempts', remainingAttemptsAllowed, 'delaySeconds', delaySeconds)
+
+            $.data(document.body, 'currentlyDownloading', true);
+
+            //decrement for the next iteration
+            remainingAttemptsAllowed--;
+            $.data(document.body, 'remainingAttemptsAllowed', remainingAttemptsAllowed);
+
+            if(response.ready === 1) {
+                window.location = response.url;
+                resetDownloadStatus();
+
+            } else if(remainingAttemptsAllowed > 0) {
+
+                // keep trying
+                setTimeout(function() {
+                    $.ajax({
+                        url: $.data(document.body, 'pollUrl'),
+                        type: 'GET',
+                        success: function(response) {
+                            pollDownload(response);
+                        }
+                    });
+                }, delaySeconds * 1000 );
+
+            } else {
+                // TODO: Just throwing an alert now, but need to use .popover()
+                alert('Error: ' + 'Could not process your request.  Try again.');
+                resetDownloadStatus();
+            }
+
+        };
+
+        var initDownload = function(options) {
+
+            // options.objectId // integer
+            // options.url // string
+            // options.requestType // orig, pdf, receipt
+
+            var objectId = options.id;
+            $.data(document.body, 'objectId', objectId);
+            var requestUrl = options.url;
+            var requestType = options.type;
+
+            // If request for PDF or Digital Receipt, POST first to get the backend ball rolling
+            if(requestType.toLowerCase() === 'pdf' || requestType.toLowerCase() === 'receipt') {
+
+                // send request
+                $.ajax({
+                    url: requestUrl,
+                    data: {},
+                    type: 'POST',
+                    timeout: 2000,
+                    error: function(response) {
+                        // show bootstrap modal alert
+                        $('#failed_pdf_modal').modal('show');
+
+                        resetDownloadStatus();
+                    },
+                    success: function(response) {
+                        console.log('success', response);
+
+                        if(response.error && response.error != '') {
+                            // TODO: Just throwing an alert now, but need to use .popover()
+                            alert('Error: ' + response.error);
+                            resetDownloadStatus();
+                        }
+
+                        pollDownload(response);
+                        $.data(document.body, 'pollUrl', response.url+'&output=json');
+                    },
+                    headers: {'X-Palladium': 1}
+                });
+
+            } else if(requestType.toLowerCase() === 'orig') {
+                window.location = requestUrl;
+
+                $('#download-activity-'+objectId).hide();
+
+            }
+
+
+        };
+
+        $('ul.dropdown-menu .download').click(function(e) {
+          // stop normal link click
+          e.preventDefault();
+
+          // one at a time, please
+          if ($.data(document.body, 'currentlyDownloading')) {
+              alert('Please wait for the current download to complete.');
+              return;
+          }
+
+          var spinner = $('#'+e.target.id).parentsUntil('.dropdown').next('.download-activity');
+          spinner.show();
+          var requestType, objectId, requestUrl;
+          var bits = e.target.id.split('_');
+          if(bits.length > 0) {
+              requestType = bits[0];
+              objectId = bits[1];
+          }
+
+          $('#download-activity-'+objectId).show();
+
+          if(requestType.toLowerCase() === 'receipt') {
+              requestUrl = '/student/paper/' + objectId + '/queue_receipt_pdf?lang=en_us&output=json';
+          } else if(requestType.toLowerCase() === 'pdf') {
+              requestUrl = '/student/paper/' + objectId + '/queue_pdf?lang=en_us&output=json';
+          } else if(requestType.toLowerCase() === 'orig') {
+              var obj = $('#'+e.target.id).data('file_params');
+              var b = [];
+              for(var n in obj) {
+                  b.push(n+'='+obj[n]);
+              }
+              requestUrl = '/paper_download.asp?'+b.join('&');
+          }
+
+          initDownload({type: requestType, url: requestUrl, id: objectId});
+
+        });
+
+
+    });
+</script>
+
+<div id="failed_pdf_modal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="failed_pdf_modal_label" aria-hidden="true">
+    <div class="modal-header">
+        <h3 id="faiuled_pdf_modal_label">Print &amp; Download</h3>
+    </div>
+    <div class="modal-body">
+        <p>Failed to generate PDF</p>
+    </div>
+    <div class="modal-footer">
+        <!--<button class="btn btn-inverse" data-dismiss="modal" aria-hidden="true">Close</button>-->
+        <button class="btn btn-primary" aria-hidden="true" data-dismiss="modal">OK</button>
+    </div>
+</div>
+
+<!--
+    
+    <td height="30" align="center"><h2 class="lefth2">assignment list</h2></td>
+
+    <td width="473" align="center">
+    <h2 class="righth2">your portfolio</h2>
+    </td>
+    
+-->
+
+
+<div class="alert alert-block alert-info fade in">
+    <a data-dismiss="alert" class="close" onclick="hide_msg();">×</a>
+    <p>
+        <strong>Welcome to your new class homepage!</strong>
+        From the class homepage you can see all your assignments for your class, view additional assignment information, submit your work, and access feedback for your papers.
+    </p>
+    <p>
+        Hover on any item in the class homepage for more information.
+    </p>
+</div>
+
+
+<div class="panel dark">
+    <h2 class="hd">Class Homepage</h2>
+</div>
+
+<p>
+This is your class homepage. To submit to an assignment click on the "Submit" button to the right of the assignment name. If the Submit button is grayed out, no submissions can be made to the assignment. If resubmissions are allowed the submit button will read "Resubmit" after you make your first submission to the assignment. To view the paper you have submitted, click the "View" button. Once the assignment's post date has passed, you will also be able to view the feedback left on your paper by clicking the "View" button.
+</p>
+
+<div class="panel">
+    <h2 class="hd">Assignment Inbox: Period 6:  English IV</h2>
+    <table id="student_assignment_table" class="content-table">
+        <tbody><tr class="col-heading">
+            <th>&nbsp;</th>
+            <th>Info</th>
+            <th>Dates</th>
+            <th>Similarity</th>
+            <th>&nbsp;</th>
+        </tr>
+<tr id="assignment_39015378" class="Paper">
+    <input type="hidden" class="rfc2822" value="Tue, 15 Sep 2015 23:59:00 -0500">
+    <td class="title">
+        
+        <div class="assignment-title">Sample Assignment</div>
+        
+    </td>
+    <td class="info">
+        
+        
+        <img src="./Turnitin_files/24511531ba9dde46d4ad56de032f42d5cb_info-blue.png" class="info-icon tooltip">
+        
+    </td>
+    <td>
+    
+        <table class="dates">
+            <tbody><tr class="tooltip">
+                <th>Start</th>
+                <td class="date start-date">08-Sep-2015</td>
+                <td class="time start-time">12:35PM</td>
+            </tr>
+            <tr class="tooltip">
+                <th>Due</th>
+                <td class="date due-date">15-Sep-2015</td>
+                <td class="time due-time">11:59PM</td>
+            </tr>
+            <tr class="tooltip">
+                <th>Post</th>
+                <td class="date post-date">16-Sep-2015</td>
+                <td class="time post-time">12:00AM</td>
+            </tr>
+        </tbody></table>
+    
+    </td>
+    <td class="similarity">
+        
+    
+        
+            
+               <span class="tooltip">
+                   <a href="javascript:void(0);" class="or-link" onclick="window.open(&#39;/newreport.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;oid=568161499&amp;pbd=2&amp;ft=1&amp;ro=&#39;,&#39;paper_viewer&#39;,&#39;location=no,menubar=no,resizable=yes,scrollbars=yes,titlebar=no,toolbar=no&#39;).focus();"><span class="or-percentage">36%</span> <span class="or-flag yellow">&nbsp;</span></a>
+               </span>
+            
+        
+    
+
+    </td>
+    <td class="action-buttons">
+        
+    
+        
+    
+        
+            
+            <a class="btn btn-primary disabled tooltip submit-btn" tabindex="3">Submit</a>
+            
+        
+        
+            
+            <a class="btn btn-inverse tooltip view-btn" tabindex="3" href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" onclick="Tii.cms.Utils.openDocumentViewer(568161499, 1042484865, {isStudent: true, evBetaAccountEnabled: true, accountHidingDvReturnLink: true}); return false;" target="_blank">View</a>
+            
+            
+                
+    <span class="dropdown">
+        <a class="btn btn-inverse download tooltip dropdown-toggle" data-toggle="dropdown"><img src="./Turnitin_files/e23e5831aa5237e5cda08114b103c037cb_download.png" alt="Download"></a>
+        <!-- IF DOWNLOAD MENU -->
+        <ul class="dropdown-menu">
+            
+            <li><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" id="orig_568161499" class="download">Originally submitted format</a><script type="text/javascript">jQuery('#orig_568161499').data('file_params',{ oid: '568161499', fn: 'More_at_eleven.docx', type: 'paper', p: 0});</script></li>
+            <li><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" onclick="window.open(&#39;/download_file.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;lang=&amp;oid=568161499&amp;fn=More_at_eleven.docx&amp;type=paper&amp;p=1&#39;,&#39;_download&#39;, &#39;height=150,width=370,location=0,status=0,menubar=0,scrollbars=0&#39;);">PDF format</a></li>
+            
+            <li><a id="receipt_568161499" class="download" href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#">Digital receipt</a></li>
+        </ul>
+        <span class="download-activity"><img id="download-activity-568161499" src="./Turnitin_files/7b9776076d5fceef4993b55c9383deddcb_ajax-indicator.gif"></span>
+    </span>
+
+            
+        
+    
+
+
+    
+
+    </td>
+</tr><!--delete this page-->
+<tr id="assignment_39298356" class="Paper">
+    <input type="hidden" class="rfc2822" value="Mon, 21 Sep 2015 23:59:00 -0500">
+    <td class="title">
+        
+        <div class="assignment-title">College / Career essay</div>
+        
+    </td>
+    <td class="info">
+        
+        
+        <img src="./Turnitin_files/24511531ba9dde46d4ad56de032f42d5cb_info-blue.png" class="info-icon tooltip">
+        
+    </td>
+    <td>
+    
+        <table class="dates">
+            <tbody><tr class="tooltip">
+                <th>Start</th>
+                <td class="date start-date">14-Sep-2015</td>
+                <td class="time start-time">12:02PM</td>
+            </tr>
+            <tr class="tooltip">
+                <th>Due</th>
+                <td class="date due-date">21-Sep-2015</td>
+                <td class="time due-time">11:59PM</td>
+            </tr>
+            <tr class="tooltip">
+                <th>Post</th>
+                <td class="date post-date">22-Sep-2015</td>
+                <td class="time post-time">12:00AM</td>
+            </tr>
+        </tbody></table>
+    
+    </td>
+    <td class="similarity">
+        
+    
+        
+            
+               <span class="tooltip">
+                   <a href="javascript:void(0);" class="or-link" onclick="window.open(&#39;/newreport.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;oid=570188132&amp;pbd=2&amp;ft=1&amp;ro=&#39;,&#39;paper_viewer&#39;,&#39;location=no,menubar=no,resizable=yes,scrollbars=yes,titlebar=no,toolbar=no&#39;).focus();"><span class="or-percentage">100%</span> <span class="or-flag red">&nbsp;</span></a>
+               </span>
+            
+        
+    
+
+    </td>
+    <td class="action-buttons">
+        
+    
+        
+    
+        
+            
+            <a class="btn btn-primary disabled tooltip submit-btn" tabindex="3">Submit</a>
+            
+        
+        
+            
+            <a class="btn btn-inverse tooltip view-btn" tabindex="3" href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" onclick="Tii.cms.Utils.openDocumentViewer(570188132, 1042484865, {isStudent: true, evBetaAccountEnabled: true, accountHidingDvReturnLink: true}); return false;" target="_blank">View</a>
+            
+            
+                
+    <span class="dropdown">
+        <a class="btn btn-inverse download tooltip dropdown-toggle" data-toggle="dropdown"><img src="./Turnitin_files/e23e5831aa5237e5cda08114b103c037cb_download.png" alt="Download"></a>
+        <!-- IF DOWNLOAD MENU -->
+        <ul class="dropdown-menu">
+            
+            
+            <li><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" onclick="window.open(&#39;/download_file.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;lang=&amp;oid=570188132&amp;fn=College_Essay.pdf&amp;type=paper&amp;p=0&#39;,&#39;_download&#39;, &#39;height=150,width=370,location=0,status=0,menubar=0,scrollbars=0&#39;);">Submission in default format</a></li>
+            
+            <li><a id="receipt_570188132" class="download" href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#">Digital receipt</a></li>
+        </ul>
+        <span class="download-activity"><img id="download-activity-570188132" src="./Turnitin_files/7b9776076d5fceef4993b55c9383deddcb_ajax-indicator.gif"></span>
+    </span>
+
+            
+        
+    
+
+
+    
+
+    </td>
+</tr><!--delete this page-->
+<tr id="assignment_42077430" class="Paper">
+    <input type="hidden" class="rfc2822" value="Mon, 16 Nov 2015 23:59:00 -0600">
+    <td class="title">
+        
+        <div class="assignment-title">Horror Essay</div>
+        
+    </td>
+    <td class="info">
+        
+        
+        <img src="./Turnitin_files/24511531ba9dde46d4ad56de032f42d5cb_info-blue.png" class="info-icon tooltip">
+        
+    </td>
+    <td>
+    
+        <table class="dates">
+            <tbody><tr class="tooltip">
+                <th>Start</th>
+                <td class="date start-date">13-Nov-2015</td>
+                <td class="time start-time"> 7:08AM</td>
+            </tr>
+            <tr class="tooltip">
+                <th>Due</th>
+                <td class="date due-date">16-Nov-2015</td>
+                <td class="time due-time">11:59PM</td>
+            </tr>
+            <tr class="tooltip">
+                <th>Post</th>
+                <td class="date post-date">16-Nov-2015</td>
+                <td class="time post-time">12:00AM</td>
+            </tr>
+        </tbody></table>
+    
+    </td>
+    <td class="similarity">
+        
+    
+        
+            
+               <span class="tooltip">
+                   <a href="javascript:void(0);" class="or-link" onclick="window.open(&#39;/newreport.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;oid=601235186&amp;pbd=2&amp;ft=1&amp;ro=&#39;,&#39;paper_viewer&#39;,&#39;location=no,menubar=no,resizable=yes,scrollbars=yes,titlebar=no,toolbar=no&#39;).focus();"><span class="or-percentage">0%</span> <span class="or-flag blue">&nbsp;</span></a>
+               </span>
+            
+        
+    
+
+    </td>
+    <td class="action-buttons">
+        
+    
+        
+    
+        
+            
+            <a class="btn btn-primary disabled tooltip submit-btn" tabindex="3">Submit</a>
+            
+        
+        
+            
+            <a class="btn btn-inverse tooltip view-btn" tabindex="3" href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" onclick="Tii.cms.Utils.openDocumentViewer(601235186, 1042484865, {isStudent: true, evBetaAccountEnabled: true, accountHidingDvReturnLink: true}); return false;" target="_blank">View</a>
+            
+            
+                
+    <span class="dropdown">
+        <a class="btn btn-inverse download tooltip dropdown-toggle" data-toggle="dropdown"><img src="./Turnitin_files/e23e5831aa5237e5cda08114b103c037cb_download.png" alt="Download"></a>
+        <!-- IF DOWNLOAD MENU -->
+        <ul class="dropdown-menu">
+            
+            
+            <li><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" onclick="window.open(&#39;/download_file.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;lang=&amp;oid=601235186&amp;fn=Horror_Directors_Cookbook.pdf&amp;type=paper&amp;p=0&#39;,&#39;_download&#39;, &#39;height=150,width=370,location=0,status=0,menubar=0,scrollbars=0&#39;);">Submission in default format</a></li>
+            
+            <li><a id="receipt_601235186" class="download" href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#">Digital receipt</a></li>
+        </ul>
+        <span class="download-activity"><img id="download-activity-601235186" src="./Turnitin_files/7b9776076d5fceef4993b55c9383deddcb_ajax-indicator.gif"></span>
+    </span>
+
+            
+        
+    
+
+
+    
+
+    </td>
+</tr><!--delete this page-->
+<tr id="assignment_48032144" class="Paper">
+    <input type="hidden" class="rfc2822" value="Thu, 24 Mar 2016 23:59:00 -0500">
+    <td class="title">
+        
+        <div class="assignment-title">Film Critique #1</div>
+        
+    </td>
+    <td class="info">
+        
+        
+        <img src="./Turnitin_files/24511531ba9dde46d4ad56de032f42d5cb_info-blue.png" class="info-icon tooltip">
+        
+    </td>
+    <td>
+    
+        <table class="dates">
+            <tbody><tr class="tooltip">
+                <th>Start</th>
+                <td class="date start-date">17-Mar-2016</td>
+                <td class="time start-time">11:49AM</td>
+            </tr>
+            <tr class="tooltip">
+                <th>Due</th>
+                <td class="date due-date">24-Mar-2016</td>
+                <td class="time due-time">11:59PM</td>
+            </tr>
+            <tr class="tooltip">
+                <th>Post</th>
+                <td class="date post-date">25-Mar-2016</td>
+                <td class="time post-time">12:00AM</td>
+            </tr>
+        </tbody></table>
+    
+    </td>
+    <td class="similarity">
+        
+    
+        
+            
+               <span class="tooltip">
+                   <a href="javascript:void(0);" class="or-link" onclick="window.open(&#39;/newreport.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;oid=649274321&amp;pbd=2&amp;ft=1&amp;ro=&#39;,&#39;paper_viewer&#39;,&#39;location=no,menubar=no,resizable=yes,scrollbars=yes,titlebar=no,toolbar=no&#39;).focus();"><span class="or-percentage">0%</span> <span class="or-flag blue">&nbsp;</span></a>
+               </span>
+            
+        
+    
+
+    </td>
+    <td class="action-buttons">
+        
+    
+        
+    
+        
+            
+            <a class="btn btn-primary disabled tooltip submit-btn" tabindex="3">Submit</a>
+            
+        
+        
+            
+            <a class="btn btn-inverse tooltip view-btn" tabindex="3" href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" onclick="Tii.cms.Utils.openDocumentViewer(649274321, 1042484865, {isStudent: true, evBetaAccountEnabled: true, accountHidingDvReturnLink: true}); return false;" target="_blank">View</a>
+            
+            
+                
+    <span class="dropdown">
+        <a class="btn btn-inverse download tooltip dropdown-toggle" data-toggle="dropdown"><img src="./Turnitin_files/e23e5831aa5237e5cda08114b103c037cb_download.png" alt="Download"></a>
+        <!-- IF DOWNLOAD MENU -->
+        <ul class="dropdown-menu">
+            
+            
+            <li><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" onclick="window.open(&#39;/download_file.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;lang=&amp;oid=649274321&amp;fn=The_Dynamite_still_has_a_bang.pdf&amp;type=paper&amp;p=0&#39;,&#39;_download&#39;, &#39;height=150,width=370,location=0,status=0,menubar=0,scrollbars=0&#39;);">Submission in default format</a></li>
+            
+            <li><a id="receipt_649274321" class="download" href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#">Digital receipt</a></li>
+        </ul>
+        <span class="download-activity"><img id="download-activity-649274321" src="./Turnitin_files/7b9776076d5fceef4993b55c9383deddcb_ajax-indicator.gif"></span>
+    </span>
+
+            
+        
+    
+
+
+    
+
+    </td>
+</tr><!--delete this page-->
+<tr id="assignment_48969161" class="Paper">
+    <input type="hidden" class="rfc2822" value="Mon, 25 Apr 2016 23:59:00 -0500">
+    <td class="title">
+        
+        <div class="assignment-title">Boxing Essay</div>
+        
+    </td>
+    <td class="info">
+        
+        
+        <img src="./Turnitin_files/24511531ba9dde46d4ad56de032f42d5cb_info-blue.png" class="info-icon tooltip">
+        
+    </td>
+    <td>
+    
+        <table class="dates">
+            <tbody><tr class="tooltip">
+                <th>Start</th>
+                <td class="date start-date">21-Apr-2016</td>
+                <td class="time start-time">12:13PM</td>
+            </tr>
+            <tr class="tooltip">
+                <th>Due</th>
+                <td class="date due-date">25-Apr-2016</td>
+                <td class="time due-time">11:59PM</td>
+            </tr>
+            <tr class="tooltip">
+                <th>Post</th>
+                <td class="date post-date">25-Apr-2016</td>
+                <td class="time post-time">12:00AM</td>
+            </tr>
+        </tbody></table>
+    
+    </td>
+    <td class="similarity">
+        
+    
+        
+            
+               <span class="tooltip">
+                   <a href="javascript:void(0);" class="or-link" onclick="window.open(&#39;/newreport.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;oid=664435371&amp;pbd=2&amp;ft=1&amp;ro=&#39;,&#39;paper_viewer&#39;,&#39;location=no,menubar=no,resizable=yes,scrollbars=yes,titlebar=no,toolbar=no&#39;).focus();"><span class="or-percentage">6%</span> <span class="or-flag green">&nbsp;</span></a>
+               </span>
+            
+        
+    
+
+    </td>
+    <td class="action-buttons">
+        
+    
+        
+    
+        
+            
+            <a class="btn btn-primary disabled tooltip submit-btn" tabindex="3">Submit</a>
+            
+        
+        
+            
+            <a class="btn btn-inverse tooltip view-btn" tabindex="3" href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" onclick="Tii.cms.Utils.openDocumentViewer(664435371, 1042484865, {isStudent: true, evBetaAccountEnabled: true, accountHidingDvReturnLink: true}); return false;" target="_blank">View</a>
+            
+            
+                
+    <span class="dropdown">
+        <a class="btn btn-inverse download tooltip dropdown-toggle" data-toggle="dropdown"><img src="./Turnitin_files/e23e5831aa5237e5cda08114b103c037cb_download.png" alt="Download"></a>
+        <!-- IF DOWNLOAD MENU -->
+        <ul class="dropdown-menu">
+            
+            
+            <li><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" onclick="window.open(&#39;/download_file.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;lang=&amp;oid=664435371&amp;fn=The_man_makes_the_clothes.pdf&amp;type=paper&amp;p=0&#39;,&#39;_download&#39;, &#39;height=150,width=370,location=0,status=0,menubar=0,scrollbars=0&#39;);">Submission in default format</a></li>
+            
+            <li><a id="receipt_664435371" class="download" href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#">Digital receipt</a></li>
+        </ul>
+        <span class="download-activity"><img id="download-activity-664435371" src="./Turnitin_files/7b9776076d5fceef4993b55c9383deddcb_ajax-indicator.gif"></span>
+    </span>
+
+            
+        
+    
+
+
+    
+
+    </td>
+</tr><!--delete this page-->
+<tr id="assignment_48969180" class="Paper">
+    <input type="hidden" class="rfc2822" value="Mon, 02 May 2016 23:59:00 -0500">
+    <td class="title">
+        
+        <div class="assignment-title">Film Critique #2</div>
+        
+    </td>
+    <td class="info">
+        
+        
+        <img src="./Turnitin_files/24511531ba9dde46d4ad56de032f42d5cb_info-blue.png" class="info-icon tooltip">
+        
+    </td>
+    <td>
+    
+        <table class="dates">
+            <tbody><tr class="tooltip">
+                <th>Start</th>
+                <td class="date start-date">21-Apr-2016</td>
+                <td class="time start-time">12:14PM</td>
+            </tr>
+            <tr class="tooltip">
+                <th>Due</th>
+                <td class="date due-date">02-May-2016</td>
+                <td class="time due-time">11:59PM</td>
+            </tr>
+            <tr class="tooltip">
+                <th>Post</th>
+                <td class="date post-date">02-May-2016</td>
+                <td class="time post-time">12:00AM</td>
+            </tr>
+        </tbody></table>
+    
+    </td>
+    <td class="similarity">
+        
+    
+        
+            
+               <span class="tooltip">
+                   <a href="javascript:void(0);" class="or-link" onclick="window.open(&#39;/newreport.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;oid=667090246&amp;pbd=2&amp;ft=1&amp;ro=&#39;,&#39;paper_viewer&#39;,&#39;location=no,menubar=no,resizable=yes,scrollbars=yes,titlebar=no,toolbar=no&#39;).focus();"><span class="or-percentage">4%</span> <span class="or-flag green">&nbsp;</span></a>
+               </span>
+            
+        
+    
+
+    </td>
+    <td class="action-buttons">
+        
+    
+        
+    
+        
+            
+            <a class="btn btn-primary disabled tooltip submit-btn" tabindex="3">Submit</a>
+            
+        
+        
+            
+            <a class="btn btn-inverse tooltip view-btn" tabindex="3" href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" onclick="Tii.cms.Utils.openDocumentViewer(667090246, 1042484865, {isStudent: true, evBetaAccountEnabled: true, accountHidingDvReturnLink: true}); return false;" target="_blank">View</a>
+            
+            
+                
+    <span class="dropdown">
+        <a class="btn btn-inverse download tooltip dropdown-toggle" data-toggle="dropdown"><img src="./Turnitin_files/e23e5831aa5237e5cda08114b103c037cb_download.png" alt="Download"></a>
+        <!-- IF DOWNLOAD MENU -->
+        <ul class="dropdown-menu">
+            
+            <li><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" id="orig_667090246" class="download">Originally submitted format</a><script type="text/javascript">jQuery('#orig_667090246').data('file_params',{ oid: '667090246', fn: 'Untitled_1.odt', type: 'paper', p: 0});</script></li>
+            <li><a href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" onclick="window.open(&#39;/download_file.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;lang=&amp;oid=667090246&amp;fn=Untitled_1.odt&amp;type=paper&amp;p=1&#39;,&#39;_download&#39;, &#39;height=150,width=370,location=0,status=0,menubar=0,scrollbars=0&#39;);">PDF format</a></li>
+            
+            <li><a id="receipt_667090246" class="download" href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#">Digital receipt</a></li>
+        </ul>
+        <span class="download-activity"><img id="download-activity-667090246" src="./Turnitin_files/7b9776076d5fceef4993b55c9383deddcb_ajax-indicator.gif"></span>
+    </span>
+
+            
+        
+    
+
+
+    
+
+    </td>
+</tr><!--delete this page-->    </tbody></table>
+</div>
+<!-- /.panel -->
+
+<div class="clear"></div>
+
+	
+
+
+<!-- Main Section Closed -->
+</div>
+<!-- Main Section Close -->
+
+
+<!-- Main Content Closed -->
+<div class="clear"></div>
+</div>
+<!-- Main Content Closed -->
+
+
+<div id="footer_container">
+	<div id="footer">
+        
+        <p>Copyright © 1998 – 2018 <a href="http://www.turnitin.com/" target="_blank">Turnitin, LLC</a>. All rights reserved.</p>
+        
+
+        <ul>
+            
+
+            
+                <li><a tabindex="5" target="_policy" href="https://turnitin.com/en_us/about-us/privacy#policy">Privacy Policy</a></li>
+                <li><a tabindex="5" target="_pledge" href="https://turnitin.com/en_us/about-us/privacy#pledge">Privacy Pledge</a></li>
+                <li><a tabindex="5" target="_termsofservice" href="https://turnitin.com/en_us/about-us/privacy#terms">Terms of Service</a></li>
+                <li><a tabindex="5" target="_eudataprotectioncompliance" href="https://turnitin.com/en_us/about-us/privacy#eu-compliance">EU Data Protection Compliance</a></li>
+                <li><a tabindex="5" target="_copyrightprotection" href="https://turnitin.com/en_us/about-us/privacy#copyright">Copyright Protection</a></li>
+                <li><a tabindex="5" target="_legalfaqs" href="https://turnitin.com/en_us/about-us/privacy#legal">Legal FAQs</a></li>
+                
+
+                
+                    <li class="help_button"><a tabindex="5" target="_helpdesk" href="https://turnitin.com/help/helpdesk.asp?r=9.60018189777045&amp;svr=322&amp;lang=en_us&amp;">Helpdesk</a></li>
+                
+
+                
+                    <li><a tabindex="5" href="http://www.plagiarism.org/" target="new">Research Resources</a></li>
+                
+
+            
+        </ul>
+	</div>
+</div>
+
+<div id="invis">
+    
+    
+    
+</div>
+
+<!-- Wrapper Content Closed -->
+<div class="clear"></div>
+</div>
+<!-- Wrapper Content Closed -->
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-145472-24']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+
+    <div class="yui-panel-container yui-overlay-hidden" id="timeoutDialog_c" style="visibility: hidden; left: 541px; top: 288px; z-index: 2;"><div id="timeoutDialog" class="modal-dialog yui-module yui-overlay yui-panel" style="visibility: inherit; width: 500px;">
+        <h2 class="hd" style="cursor: auto;">Timeout Warning</h2>
+        <p class="bd">
+            For security reasons, this page will expire in exactly <b>30 seconds.</b> If you would like to continue working on this page without timing out, click "extend session" below.
+        </p>
+        <div class="ft"><span id="extend-timer" class="yui-button yui-link-button"><span class="first-child"><a tabindex="0" href="https://turnitin.com/s_class_portfolio.asp?r=76.2096579953358&amp;svr=321&amp;lang=en_us&amp;aid=18454&amp;cid=10627716#" id="extend-timer-button">Extend session</a></span></span></div>
+    </div></div>
+
+
+
+</div><div id="tiptip_holder" style="max-width: 500px; display: none; margin: 588px 0px 0px 336px;" class="tip_top"><div id="tiptip_arrow" style="margin-left: 179.5px; margin-top: 110px;"><div id="tiptip_arrow_inner"></div></div><div id="tiptip_content">
+            <h4>Assignment Instructions</h4>
+            No additional instructions have been entered for this assignment.
+            <ul>
+                <li><em>Late paper submissions are allowed for this assignment.</em></li>
+                <li><em>Resubmissions are allowed for this assignment.</em></li>
+            </ul>
+        </div></div></body></html>
